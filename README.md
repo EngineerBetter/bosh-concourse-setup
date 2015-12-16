@@ -23,7 +23,7 @@ terraform apply
 Then create the `bosh-director.yml` manifest:
 
 ```
-./bin/create_manifest.sh
+./bin/make_manifest.sh
 ```
 
 You are ready to deploy the BOSH Director
