@@ -1,3 +1,6 @@
-Daisy Terraform Demo
+BOSH Director Example
+==========================
 
-Automated deployment of infrastructure to AWS and Azure
+Deployment of a BOSH Director using bosh-init.
+
+Terraform is used to setup the base network and security infrastructure on AWS.

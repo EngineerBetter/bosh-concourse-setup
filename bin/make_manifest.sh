@@ -4,6 +4,7 @@
 #  $ACCESS_KEY_ID
 #  $SECRET_ACCESS_KEY
 #  $PASSWORD
+#  $PRIVATE_KEY_PATH
 
 function getvars() {
   cd terraform/
@@ -149,7 +150,7 @@ cloud_provider:
   template: {name: aws_cpi, release: bosh-aws-cpi}
 
   ssh_tunnel:
-    host: 52.31.228.56 # <--- Replace with your Elastic IP address
+    host: $EIP # <--- Replace with your Elastic IP address
     port: 22
     user: vcap
     private_key: $PRIVATE_KEY_PATH # Path relative to this manifest file
