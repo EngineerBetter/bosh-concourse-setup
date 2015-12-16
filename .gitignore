@@ -11,4 +11,3 @@
 ### BOSH ###
 *state.json
 bosh-director.yml
-.config/
