@@ -1,0 +1,13 @@
+### Terraform ###
+# Terraform - https://terraform.io/
+.terraform
+*.tfvars
+*.backup
+*.tfstate
+*.plan
+*.publishsettings
+### Keys ###
+*.pem
+### BOSH ###
+*state.json
+bosh-director.yml
