@@ -107,7 +107,7 @@ jobs:
       address: 10.0.0.6
       host: 10.0.0.6
       db: *db
-      http: {user: admin, $BOSH_PASSWORD: admin, port: 25777}
+      http: {user: admin, password: $BOSH_PASSWORD, port: 25777}
       username: admin
       password: $BOSH_PASSWORD
       port: 25777
