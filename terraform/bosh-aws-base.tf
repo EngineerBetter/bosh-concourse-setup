@@ -10,7 +10,6 @@ resource "aws_vpc" "default" {
     tags {
     Name = "bosh-default"
     component = "bosh-director"
-    Team = "dg-cloudservices"
   }
 }
 
@@ -20,7 +19,6 @@ resource "aws_internet_gateway" "default" {
   tags {
   Name = "bosh-default"
   component = "bosh-director"
-  Team = "dg-cloudservices"
   }
 }
 
@@ -40,7 +38,6 @@ resource "aws_subnet" "default" {
   tags {
   Name = "bosh-default"
   component = "bosh-director"
-  Team = "dg-cloudservices"
   }
 }
 
@@ -57,7 +54,6 @@ resource "aws_security_group" "boshdefault" {
   tags {
   Name = "bosh-default"
   component = "bosh-director"
-  Team = "dg-cloudservices"
   }
 
 	# inbound access rules

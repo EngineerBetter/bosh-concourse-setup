@@ -1,9 +1,10 @@
 #!/bin/bash
 #
 #  Please set the following environment variables:
-#  $ACCESS_KEY_ID
-#  $SECRET_ACCESS_KEY
-#  $PASSWORD
+#  $AWS_ACCESS_KEY_ID
+#  $AWS_SECRET_ACCESS_KEY
+#  $BOSH_PASSWORD
+#  $AWS_KEYPAIR_KEY_NAME
 #  $PRIVATE_KEY_PATH
 
 function getvars() {
@@ -87,18 +88,18 @@ jobs:
     nats:
       address: 127.0.0.1
       user: nats
-      password: $PASSWORD
+      password: $BOSH_PASSWORD
 
     redis:
       listen_address: 127.0.0.1
       address: 127.0.0.1
-      password: $PASSWORD
+      password: $BOSH_PASSWORD
 
     postgres: &db
       listen_address: 127.0.0.1
       host: 127.0.0.1
       user: postgres
-      password: $PASSWORD
+      password: $BOSH_PASSWORD
       database: bosh
       adapter: postgres
 
@@ -106,17 +107,17 @@ jobs:
       address: 10.0.0.6
       host: 10.0.0.6
       db: *db
-      http: {user: admin, $PASSWORD: admin, port: 25777}
+      http: {user: admin, $BOSH_PASSWORD: admin, port: 25777}
       username: admin
-      password: $PASSWORD
+      password: $BOSH_PASSWORD
       port: 25777
 
     blobstore:
       address: 10.0.0.6
       port: 25250
       provider: dav
-      director: {user: director, password: $PASSWORD}
-      agent: {user: agent, password: $PASSWORD}
+      director: {user: director, password: $BOSH_PASSWORD}
+      agent: {user: agent, password: $BOSH_PASSWORD}
 
     director:
       address: 127.0.0.1
@@ -128,21 +129,21 @@ jobs:
         provider: local
         local:
           users:
-          - {name: admin, password: $PASSWORD}
-          - {name: hm, password: $PASSWORD}
+          - {name: admin, password: $BOSH_PASSWORD}
+          - {name: hm, password: $BOSH_PASSWORD}
 
     hm:
-      director_account: {user: hm, password: $PASSWORD}
+      director_account: {user: hm, password: $BOSH_PASSWORD}
       resurrector_enabled: true
 
     aws: &aws
-      access_key_id: $ACCESS_KEY_ID
-      secret_access_key: $SECRET_ACCESS_KEY
-      default_key_name: $KEY_NAME
+      access_key_id: $AWS_ACCESS_KEY_ID
+      secret_access_key: $AWS_SECRET_ACCESS_KEY
+      default_key_name: $AWS_KEYPAIR_KEY_NAME
       default_security_groups: [$SECURITY_GROUP]
       region: eu-west-1
 
-    agent: {mbus: "nats://nats:$PASSWORD@10.0.0.6:4222"}
+    agent: {mbus: "nats://nats:$BOSH_PASSWORD@10.0.0.6:4222"}
 
     ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
 
@@ -155,11 +156,11 @@ cloud_provider:
     user: vcap
     private_key: $PRIVATE_KEY_PATH # Path relative to this manifest file
 
-  mbus: "https://mbus:$PASSWORD@$EIP:6868" # <--- Replace with Elastic IP
+  mbus: "https://mbus:$BOSH_PASSWORD@$EIP:6868" # <--- Replace with Elastic IP
 
   properties:
     aws: *aws
-    agent: {mbus: "https://mbus:$PASSWORD@0.0.0.0:6868"}
+    agent: {mbus: "https://mbus:$BOSH_PASSWORD@0.0.0.0:6868"}
     blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
     ntp: *ntp
 YAML
