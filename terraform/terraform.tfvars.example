@@ -1,0 +1,6 @@
+aws_access_key_id="your_key_id"
+aws_secret_access_key="your_secret_key"
+source_access_ip="123.123.123.123/32"
+ssl_cert_arn="arn:aws:iam::12345"
+ci_dns_zone_id="your_dns_zone_id"
+ci_hostname="your_concourse_hostname"
