@@ -121,7 +121,7 @@ jobs:
 
     director:
       address: 127.0.0.1
-      name: my-bosh
+      name: eb-bosh
       db: *db
       cpi_job: aws_cpi
       max_threads: 10

@@ -46,7 +46,7 @@ resource "aws_eip" "boshdirector" {
     vpc = true
 }
 
-# A security group
+# The default security group
 resource "aws_security_group" "boshdefault" {
   name        = "boshdefault"
   description = "Default BOSH security group"
@@ -91,6 +91,20 @@ resource "aws_security_group" "boshdefault" {
 		protocol    = "udp"
 		self        = true
 	}
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    security_groups = ["${aws_security_group.elbgroup.id}"]
+  }
+
+  ingress {
+    from_port   = 2222
+    to_port     = 2222
+    protocol    = "tcp"
+    security_groups = ["${aws_security_group.elbgroup.id}"]
+  }
 
 	# outbound internet access
   egress {

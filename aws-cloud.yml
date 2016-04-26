@@ -3,18 +3,28 @@ azs:
   cloud_properties: {availability_zone: eu-west-1a}
 
 vm_types:
-- name: default
+- name: concourse_standalone
   cloud_properties:
-    instance_type: t2.micro
-    ephemeral_disk: {size: 3000, type: gp2}
-- name: medium
-  cloud_properties:
-    instance_type: t2.medium
-    ephemeral_disk: {size: 3000, type: gp2}
-- name: medium_ssd
+    instance_type: m3.large
+    ephemeral_disk: {size: 5000, type: gp2}
+    elbs: [concourse-elb]
+- name: concourse_web
   cloud_properties:
     instance_type: m3.medium
     ephemeral_disk: {size: 3000, type: gp2}
+    elbs: [concourse-elb]
+- name: concourse_db
+  cloud_properties:
+    instance_type: m3.medium
+    ephemeral_disk: {size: 3000, type: gp2}
+- name: concourse_worker
+  cloud_properties:
+    instance_type: m3.medium
+    ephemeral_disk: {size: 3000, type: gp2}
+- name: default
+  cloud_properties:
+    instance_type: t2.micro
+    ephemeral_disk: {size: 30000, type: gp2}
 - name: large
   cloud_properties:
     instance_type: m3.large
@@ -36,6 +46,7 @@ networks:
     gateway: 10.0.0.1
     az: z1
     static: [10.0.0.6]
+    reserved: [10.0.0.1-10.0.0.5]
     dns: [10.0.0.2]
     cloud_properties: {subnet: subnet-24aabd7d}
 - name: vip
