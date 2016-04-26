@@ -24,7 +24,7 @@ Assumptions
 You already have:
 
 - A Route53 Zone in AWS.
-- An SSH keypair
+- An EC2 SSH keypair
 
 Usage
 -----
