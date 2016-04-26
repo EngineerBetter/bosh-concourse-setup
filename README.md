@@ -20,6 +20,9 @@ Ensure you have created a `terraform/terraform.tfvars` file with your variables,
 
 Assumptions
 -----
+
+You already have:
+
 - A Route53 Zone in AWS.
 - An SSH keypair
 
