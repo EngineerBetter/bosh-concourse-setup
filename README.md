@@ -7,7 +7,7 @@ This project achieves the following:
 - Deployment of a new BOSH Director using bosh-init
 - Deployment of a new Concourse cluster, or standalone server
 
-Terraform is used to setup the base network and security infrastructure.
+Terraform is used to setup the base network and security infrastructure, including an ELB for Concourse.
 
 Requirements
 -----
@@ -25,6 +25,7 @@ You already have:
 
 - A Route53 Zone in AWS.
 - An EC2 SSH keypair
+- An SSL certificate in AWS for your Concourse ELB
 
 Usage
 -----
