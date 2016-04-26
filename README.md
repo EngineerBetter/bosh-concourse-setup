@@ -12,9 +12,9 @@ Terraform is used to setup the base network and security infrastructure.
 Requirements
 -----
 
-- Install (terraform)[https://www.terraform.io/intro/getting-started/install.html]
-- Install (bosh-init)[https://bosh.io/docs/install-bosh-init.html]
-- Install the (bosh_cli)[https://bosh.io/docs/bosh-cli.html]
+- Install [terraform](https://www.terraform.io/intro/getting-started/install.html)
+- Install [bosh-init](https://bosh.io/docs/install-bosh-init.html)
+- Install the [bosh_cli](https://bosh.io/docs/bosh-cli.html)
 
 Ensure you have created a `terraform/terraform.tfvars` file with your variables, or set suitable (environment variables)[https://www.terraform.io/docs/configuration/variables.html]. An example tfvars file can be found in `terraform/terraform.tfvars.example`
 
