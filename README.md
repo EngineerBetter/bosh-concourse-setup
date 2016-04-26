@@ -16,7 +16,7 @@ Requirements
 - Install [bosh-init](https://bosh.io/docs/install-bosh-init.html)
 - Install the [bosh_cli](https://bosh.io/docs/bosh-cli.html)
 
-Ensure you have created a `terraform/terraform.tfvars` file with your variables, or set suitable (environment variables)[https://www.terraform.io/docs/configuration/variables.html]. An example tfvars file can be found in `terraform/terraform.tfvars.example`
+Ensure you have created a `terraform/terraform.tfvars` file with your variables, or set suitable [environment variables](https://www.terraform.io/docs/configuration/variables.html). An example tfvars file can be found in `terraform/terraform.tfvars.example`
 
 Assumptions
 -----
@@ -87,3 +87,5 @@ bosh upload release https://bosh.io/d/github.com/cloudfoundry-incubator/garden-l
 bosh deployment concourse.yml
 bosh deploy
 ```
+
+Congratulations, you should now be able to see your new CI server at https://your-concourse-url.
