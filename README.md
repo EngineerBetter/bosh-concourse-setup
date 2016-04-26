@@ -5,7 +5,7 @@ This project achieves the following:
 
 - Preparation of an AWS environment for BOSH & Concourse
 - Deployment of a new BOSH Director using bosh-init
-- Deployment of a new Concourse cluster
+- Deployment of a new Concourse cluster, or standalone server
 
 Terraform is used to setup the base network and security infrastructure.
 
@@ -18,6 +18,11 @@ Requirements
 
 Ensure you have created a `terraform/terraform.tfvars` file with your variables, or set suitable (environment variables)[https://www.terraform.io/docs/configuration/variables.html]. An example tfvars file can be found in `terraform/terraform.tfvars.example`
 
+Assumptions
+-----
+- A Route53 Zone in AWS.
+- An SSH keypair
+
 Usage
 -----
 
@@ -26,6 +31,15 @@ Ensure terraform is in your path, then apply the configuration to prepare the Ia
 ```
 cd terraform/
 terraform apply
+```
+Set the following environment variables:
+
+```
+$AWS_ACCESS_KEY_ID
+$AWS_SECRET_ACCESS_KEY
+$BOSH_PASSWORD
+$AWS_KEYPAIR_KEY_NAME
+$PRIVATE_KEY_PATH
 ```
 
 Then create the `bosh-director.yml` manifest:
@@ -46,12 +60,22 @@ bosh target <your EIP address>
 bosh update cloud-config aws-cloud.yml
 ```
 
-Create the concourse manifest:
+Set the Concourse URL and password in these environment variables:
+```
+ATC_URL
+fly_target
+```
+
+Create a concourse manifest for a single server deployment:
 ```
 ./bin/make_manifest_concourse.sh
 ```
+Or, create a concourse manifest for small cluster:
+```
+./bin/make_manifest_concourse-cluster.sh
+```
 
-Upload a stemcell & releases, then deploy concourse:
+Upload the necessary stemcell & releases, then deploy concourse:
 ```
 bosh upload stemcell https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent
 bosh upload release https://bosh.io/d/github.com/concourse/concourse
