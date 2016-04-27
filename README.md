@@ -29,7 +29,7 @@ You already have:
 Usage
 -----
 
-Ensure terraform is in your path, then apply the configuration to prepare the IaaS for BOSH and Concourse:
+Set your desired AWS region in `terrform/variables.tf`. Ensure terraform is in your path, then apply the configuration to prepare the IaaS for BOSH and Concourse:
 
 ```
 cd terraform/
@@ -40,6 +40,8 @@ Set the following environment variables:
 ```
 $AWS_ACCESS_KEY_ID
 $AWS_SECRET_ACCESS_KEY
+$AWS_REGION
+$AWS_AZ
 $BOSH_PASSWORD
 $AWS_KEYPAIR_KEY_NAME
 $PRIVATE_KEY_PATH

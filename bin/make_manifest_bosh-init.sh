@@ -3,6 +3,8 @@
 #  Please set the following environment variables:
 #  $AWS_ACCESS_KEY_ID
 #  $AWS_SECRET_ACCESS_KEY
+#  $AWS_REGION
+#  $AWS_AZ
 #  $BOSH_PASSWORD
 #  $AWS_KEYPAIR_KEY_NAME
 #  $PRIVATE_KEY_PATH
@@ -20,6 +22,8 @@ getvars
 echo "Subnet = $SUBNET"
 echo "Security Group = $SECURITY_GROUP"
 echo "EIP = $EIP"
+echo "AWS REGION = $AWS_REGION"
+echo "AWS AZ = $AWS_AZ"
 
 cat >bosh-director.yml <<YAML
 ---
@@ -42,7 +46,7 @@ resource_pools:
   cloud_properties:
     instance_type: m3.large
     ephemeral_disk: {size: 25_000, type: gp2}
-    availability_zone: eu-west-1a # <--- Replace with Availability Zone
+    availability_zone: $AWS_AZ
 
 disk_pools:
 - name: disks
@@ -56,7 +60,7 @@ networks:
   - range: 10.0.0.0/24
     gateway: 10.0.0.1
     dns: [10.0.0.2]
-    cloud_properties: {subnet: $SUBNET} # <--- Replace with Subnet ID
+    cloud_properties: {subnet: $SUBNET}
 - name: public
   type: vip
 
@@ -82,7 +86,7 @@ jobs:
     static_ips: [10.0.0.6]
     default: [dns, gateway]
   - name: public
-    static_ips: [$EIP] # <--- Replace with Elastic IP
+    static_ips: [$EIP]
 
   properties:
     nats:
@@ -141,7 +145,7 @@ jobs:
       secret_access_key: $AWS_SECRET_ACCESS_KEY
       default_key_name: $AWS_KEYPAIR_KEY_NAME
       default_security_groups: [$SECURITY_GROUP]
-      region: eu-west-1
+      region: $AWS_REGION
 
     agent: {mbus: "nats://nats:$BOSH_PASSWORD@10.0.0.6:4222"}
 
