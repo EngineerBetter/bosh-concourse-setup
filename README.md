@@ -7,7 +7,7 @@ This project achieves the following:
 - Deployment of a new BOSH Director using bosh-init
 - Deployment of a new Concourse cluster, or standalone server
 
-Terraform is used to setup the base network and security infrastructure.
+Terraform is used to setup the base network and security infrastructure, including an ELB for Concourse.
 
 Requirements
 -----
@@ -16,7 +16,7 @@ Requirements
 - Install [bosh-init](https://bosh.io/docs/install-bosh-init.html)
 - Install the [bosh_cli](https://bosh.io/docs/bosh-cli.html)
 
-Ensure you have created a `terraform/terraform.tfvars` file with your variables, or set suitable (environment variables)[https://www.terraform.io/docs/configuration/variables.html]. An example tfvars file can be found in `terraform/terraform.tfvars.example`
+Ensure you have created a `terraform/terraform.tfvars` file with your variables, or set suitable [environment variables](https://www.terraform.io/docs/configuration/variables.html). An example tfvars file can be found in `terraform/terraform.tfvars.example`
 
 Assumptions
 -----
@@ -25,6 +25,7 @@ You already have:
 
 - A Route53 Zone in AWS.
 - An EC2 SSH keypair
+- An SSL certificate in AWS for your Concourse ELB
 
 Usage
 -----
@@ -88,3 +89,5 @@ bosh upload release https://bosh.io/d/github.com/cloudfoundry-incubator/garden-l
 bosh deployment concourse.yml
 bosh deploy
 ```
+
+Congratulations, you should now be able to see your new CI server at https://your-concourse-url.
