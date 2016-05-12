@@ -4,6 +4,7 @@
 *.tfvars
 *.backup
 *.tfstate
+*.DS_Store
 *.plan
 *.publishsettings
 ### Keys ###

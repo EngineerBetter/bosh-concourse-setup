@@ -66,7 +66,7 @@ bosh target <your EIP address>
 bosh update cloud-config aws-cloud.yml
 ```
 
-Set the Concourse URL and password in these environment variables:
+Set the Concourse URL and fly cli target in these environment variables:
 ```
 ATC_URL
 fly_target
