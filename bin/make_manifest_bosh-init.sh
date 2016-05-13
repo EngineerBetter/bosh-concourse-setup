@@ -31,18 +31,18 @@ name: bosh
 
 releases:
 - name: bosh
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=255.10
-  sha1: 013e75a62b0511ec714e89444964c63cbc289b09
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=256.2
+  sha1: ff2f4e16e02f66b31c595196052a809100cfd5a8
 - name: bosh-aws-cpi
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=51
-  sha1: 7856e0d1db7d679786fedd3dcb419b802da0434b
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=52
+  sha1: dc4a0cca3b33dce291e4fbeb9e9948b6a7be3324
 
 resource_pools:
 - name: vms
   network: private
   stemcell:
-    url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3215.4
-    sha1: 02e0491d89cc94080839d502949eb09f33a5bf3d
+    url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3232.3
+    sha1: 1fe87c0146ad1f3b55eeed5a80ce35c01b4eb6d9
   cloud_properties:
     instance_type: m3.large
     ephemeral_disk: {size: 25_000, type: gp2}
@@ -70,7 +70,6 @@ jobs:
 
   templates:
   - {name: nats, release: bosh}
-  - {name: redis, release: bosh}
   - {name: postgres, release: bosh}
   - {name: blobstore, release: bosh}
   - {name: director, release: bosh}
@@ -92,11 +91,6 @@ jobs:
     nats:
       address: 127.0.0.1
       user: nats
-      password: $BOSH_PASSWORD
-
-    redis:
-      listen_address: 127.0.0.1
-      address: 127.0.0.1
       password: $BOSH_PASSWORD
 
     postgres: &db
