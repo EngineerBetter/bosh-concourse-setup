@@ -1,6 +1,6 @@
 azs:
 - name: z1
-  cloud_properties: {availability_zone: eu-west-1a}
+  cloud_properties: {availability_zone: us-east-1a}
 
 vm_types:
 - name: concourse_standalone
@@ -48,7 +48,7 @@ networks:
     static: [10.0.0.6]
     reserved: [10.0.0.1-10.0.0.5]
     dns: [10.0.0.2]
-    cloud_properties: {subnet: subnet-24aabd7d}
+    cloud_properties: {subnet: subnet-074f1471}
 - name: vip
   type: vip
 

@@ -6,7 +6,7 @@ type = "string"
 }
 variable "aws_region" {
     type = "string"
-    default =  "eu-west-1"
+    default =  "us-east-1"
 }
 variable "source_access_ip" {
 type = "string"
