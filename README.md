@@ -60,19 +60,22 @@ bosh-init deploy bosh-director.yml
 
 Go and make a cup of tea.
 
-Once the director is deployed, target it and apply your cloud-config for AWS
+Once the director is deployed, target it and apply your cloud-config for AWS.
+Remember to set your chosen AZ and the subnet-id output by terraform in `aws-cloud.yml`.
+
 ```
 bosh target <your EIP address>
 bosh update cloud-config aws-cloud.yml
 ```
 
-Set the Concourse URL and fly cli target in these environment variables:
+Set the Concourse URL and password in these environment variables:
+
 ```
-ATC_URL
-fly_target
+$CONCOURSE_PASSWORD
+$CONCOURSE_URL
 ```
 
-Create a concourse manifest for a single server deployment:
+Then create a concourse manifest for a single server deployment:
 ```
 ./bin/make_manifest_concourse.sh
 ```
