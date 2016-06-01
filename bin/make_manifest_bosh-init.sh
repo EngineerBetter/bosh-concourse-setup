@@ -12,7 +12,7 @@
 function getvars() {
   cd terraform/
   EIP=$(terraform output eip)
-  SUBNET=$(terraform output subnet_id)
+  SUBNET=$(terraform output default_subnet_id)
   SECURITY_GROUP=$(terraform output security_group_id)
   cd ../
 }

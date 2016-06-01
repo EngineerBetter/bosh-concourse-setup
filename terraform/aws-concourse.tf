@@ -1,3 +1,14 @@
+# Create an ops_services subnet
+resource "aws_subnet" "ops_services" {
+  vpc_id                  = "${aws_vpc.default.id}"
+  cidr_block              = "10.0.10.0/24"
+  map_public_ip_on_launch = true
+  tags {
+  Name = "ops_services"
+  component = "ops_services"
+  }
+}
+
 # Create an ELB security group
 resource "aws_security_group" "elbgroup" {
   name        = "elbgroup"
