@@ -55,6 +55,7 @@ networks:
   - range: 10.0.10.0/24
     gateway: 10.0.10.1
     az: z1
+    reserved: [10.0.10.1-10.0.10.5]
     dns: [10.0.0.2]
     cloud_properties: {subnet: subnet-6bfcc91d}
 - name: vip
