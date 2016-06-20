@@ -18,7 +18,7 @@ director_uuid: $DIRECTOR_UUID
 releases:
 - name: concourse
   version: latest
-- name: garden-linux
+- name: garden-runc
   version: latest
 
 stemcells:
@@ -70,7 +70,7 @@ instance_groups:
     properties: {}
 
   - name: garden
-    release: garden-linux
+    release: garden-runc
     properties:
       garden:
         listen_network: tcp
