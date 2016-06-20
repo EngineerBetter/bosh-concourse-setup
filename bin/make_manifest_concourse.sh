@@ -32,7 +32,7 @@ instance_groups:
   vm_type: concourse_standalone
   stemcell: trusty
   azs: [z1]
-  networks: [{name: default}]
+  networks: [{name: ops_services}]
   jobs:
   - name: atc
     release: concourse
