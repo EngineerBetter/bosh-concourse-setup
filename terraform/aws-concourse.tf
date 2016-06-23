@@ -1,21 +1,44 @@
-# Create an ops_services subnet
-resource "aws_subnet" "ops_services" {
-  vpc_id                  = "${aws_vpc.default.id}"
-  cidr_block              = "10.0.10.0/24"
-  map_public_ip_on_launch = true
+# Create a Concourse security group
+resource "aws_security_group" "concourse-sg" {
+  name        = "concourse-sg"
+  description = "Concourse security group"
+  vpc_id      = "${aws_vpc.default.id}"
   tags {
-  Name = "ops_services"
-  component = "ops_services"
+  Name = "concourse-sg"
+  component = "concourse"
+  }
+
+  # outbound internet access
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # inbound connections from ELB
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    security_groups = ["${aws_security_group.elb-sg.id}"]
+  }
+
+  ingress {
+    from_port   = 2222
+    to_port     = 2222
+    protocol    = "tcp"
+    security_groups = ["${aws_security_group.elb-sg.id}"]
   }
 }
 
 # Create an ELB security group
-resource "aws_security_group" "elbgroup" {
-  name        = "elbgroup"
+resource "aws_security_group" "elb-sg" {
+  name        = "elb-sg"
   description = "ELB security group"
   vpc_id      = "${aws_vpc.default.id}"
   tags {
-  Name = "elbgroup"
+  Name = "elb-sg"
   component = "concourse"
   }
 
@@ -56,8 +79,8 @@ resource "aws_security_group" "elbgroup" {
 # Create a new load balancer
 resource "aws_elb" "concourse" {
   name = "concourse-elb"
-  subnets = ["${aws_subnet.default.id}"]
-  security_groups = ["${aws_security_group.elbgroup.id}"]
+  subnets = ["${aws_subnet.ops_services.id}"]
+  security_groups = ["${aws_security_group.elb-sg.id}"]
 
   listener {
     instance_port = 8080
