@@ -1,13 +1,17 @@
 #!/bin/bash
 #
 #  Please set the following environment variables:
-#  $CONCOURSE_PASSWORD
+#  $DB_PASSWORD
 #  $CONCOURSE_URL
+#  $GITHUB_ORG
+#  $GITHUB_CLIENT_ID
+#  $GITHUB_CLIENT_SECRET
 
 DIRECTOR_UUID=`bosh status --uuid`
 
 echo "director_uuid = $DIRECTOR_UUID"
 echo "concourse url = $CONCOURSE_URL"
+echo "GitHub Org = $GITHUB_ORG"
 
 cat >concourse.yml <<YAML
 ---
@@ -40,9 +44,13 @@ instance_groups:
       # replace with your CI's externally reachable URL e.g https://blah
       external_url: $CONCOURSE_URL
 
-      # replace with username/password, or configure GitHub auth
-      basic_auth_username: admin
-      basic_auth_password: $CONCOURSE_PASSWORD
+      # configure GitHub auth
+      github_auth:
+        authorize:
+        - organization: $GITHUB_ORG
+          teams: [CI]
+        client_id: $GITHUB_CLIENT_ID
+        client_secret: $GITHUB_CLIENT_SECRET
 
       postgresql_database: &atc_db atc
 
@@ -59,7 +67,7 @@ instance_groups:
       - name: *atc_db
         # make up a role and password
         role: dbrole
-        password: $CONCOURSE_PASSWORD
+        password: $DB_PASSWORD
 
   - name: groundcrew
     release: concourse
