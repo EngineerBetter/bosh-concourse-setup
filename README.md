@@ -68,11 +68,18 @@ bosh target <your EIP address>
 bosh update cloud-config aws-cloud.yml
 ```
 
-Set the Concourse URL and password in these environment variables:
+Set a database password and external URL for your deployment in these environment variables:
 
 ```
-$CONCOURSE_PASSWORD
+$DB_PASSWORD
 $CONCOURSE_URL
+```
+Create a new OAuth application in GitHub as described [here](http://concourse.ci/authentication.html). The manifest assumes the existance of a 'CI' team that contains your authorised users, so create that too. Then set the following environment variables:
+
+```
+$GITHUB_ORG
+$GITHUB_CLIENT_ID
+$GITHUB_CLIENT_SECRET
 ```
 
 Then create a concourse manifest for a single server deployment:
