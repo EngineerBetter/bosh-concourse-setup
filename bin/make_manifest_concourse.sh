@@ -18,7 +18,7 @@ director_uuid: $DIRECTOR_UUID
 releases:
 - name: concourse
   version: latest
-- name: garden-linux
+- name: garden-runc
   version: latest
 
 stemcells:
@@ -32,7 +32,7 @@ instance_groups:
   vm_type: concourse_standalone
   stemcell: trusty
   azs: [z1]
-  networks: [{name: default}]
+  networks: [{name: ops_services}]
   jobs:
   - name: atc
     release: concourse
@@ -70,7 +70,7 @@ instance_groups:
     properties: {}
 
   - name: garden
-    release: garden-linux
+    release: garden-runc
     properties:
       garden:
         listen_network: tcp

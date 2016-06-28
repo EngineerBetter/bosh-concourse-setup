@@ -40,6 +40,17 @@ resource "aws_subnet" "default" {
   }
 }
 
+# Create an ops_services subnet
+resource "aws_subnet" "ops_services" {
+  vpc_id                  = "${aws_vpc.default.id}"
+  cidr_block              = "10.0.10.0/24"
+  map_public_ip_on_launch = true
+  tags {
+  Name = "ops_services"
+  component = "ops_services"
+  }
+}
+
 # Create an EIP for our Director
 resource "aws_eip" "boshdirector" {
     vpc = true
@@ -90,20 +101,6 @@ resource "aws_security_group" "boshdefault" {
 		protocol    = "udp"
 		self        = true
 	}
-
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    security_groups = ["${aws_security_group.elbgroup.id}"]
-  }
-
-  ingress {
-    from_port   = 2222
-    to_port     = 2222
-    protocol    = "tcp"
-    security_groups = ["${aws_security_group.elbgroup.id}"]
-  }
 
 	# outbound internet access
   egress {
