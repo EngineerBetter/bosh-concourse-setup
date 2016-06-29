@@ -1,13 +1,8 @@
 #!/bin/bash
 #
 #  Please set the following environment variables:
-#  $AWS_ACCESS_KEY_ID
-#  $AWS_SECRET_ACCESS_KEY
-#  $AWS_REGION
 #  $AWS_AZ
-#  $BOSH_PASSWORD
-#  $AWS_KEYPAIR_KEY_NAME
-#  $PRIVATE_KEY_PATH
+
 
 function getvars() {
   cd terraform/
@@ -20,13 +15,14 @@ getvars
 
 echo "Default Subnet = $DEFAULT_SUBNET"
 echo "Ops Services Subnet = $OPS_SUBNET"
+echo "AWS AZ" = $AWS_AZ
 
 
 cat >aws-cloud.yml <<YAML
 ---
 azs:
 - name: z1
-  cloud_properties: {availability_zone: us-east-1a}
+  cloud_properties: {availability_zone: $AWS_AZ}
 
 vm_types:
 - name: concourse_standalone
