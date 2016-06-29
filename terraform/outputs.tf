@@ -10,6 +10,10 @@ output "ops_services_subnet_id" {
     value = "${aws_subnet.ops_services.id}"
 }
 
+output "ops_services_subnet_id" {
+    value = "${aws_subnet.ops_services.id}"
+}
+
 output "eip" {
     value = "${aws_eip.boshdirector.public_ip}"
 }
