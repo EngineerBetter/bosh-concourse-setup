@@ -14,6 +14,9 @@ type = "string"
 variable "source_access_block2" {
 type = "string"
 }
+variable "source_access_block3" {
+type = "string"
+}
 variable "ci_hostname" {
 type = "string"
 }

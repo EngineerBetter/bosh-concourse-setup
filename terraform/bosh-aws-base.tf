@@ -71,21 +71,21 @@ resource "aws_security_group" "boshdefault" {
     from_port   = 6868
     to_port     = 6868
     protocol    = "tcp"
-		cidr_blocks = ["${var.source_access_block1}", "${var.source_access_block2}"]
+		cidr_blocks = ["${var.source_access_block1}", "${var.source_access_block2}", "${var.source_access_block3}"]
   }
 
 	ingress {
 		from_port   = 25555
 		to_port     = 25555
 		protocol    = "tcp"
-		cidr_blocks = ["${var.source_access_block1}", "${var.source_access_block2}"]
+		cidr_blocks = ["${var.source_access_block1}", "${var.source_access_block2}", "${var.source_access_block3}"]
 	}
 
 	ingress {
 		from_port   = 22
 		to_port     = 22
 		protocol    = "tcp"
-		cidr_blocks = ["${var.source_access_block1}", "${var.source_access_block2}"]
+		cidr_blocks = ["${var.source_access_block1}", "${var.source_access_block2}", "${var.source_access_block3}"]
 	}
 
 	ingress {
