@@ -20,6 +20,9 @@ type = "string"
 variable "ci_hostname" {
 type = "string"
 }
+variable "logsearch_hostname" {
+type = "string"
+}
 variable "ci_dns_zone_id" {
 type = "string"
 }
