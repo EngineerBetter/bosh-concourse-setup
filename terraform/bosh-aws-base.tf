@@ -79,6 +79,7 @@ resource "aws_security_group" "boshdefault" {
 		to_port     = 25555
 		protocol    = "tcp"
 		cidr_blocks = ["${var.source_access_block1}", "${var.source_access_block2}", "${var.source_access_block3}", "${var.source_access_block4}"]
+  }
 
 	ingress {
 		from_port   = 22
