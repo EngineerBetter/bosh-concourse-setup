@@ -16,12 +16,20 @@ resource "aws_security_group" "logsearch-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # inbound connections to Kibana
+  # inbound connections to haproxy
   ingress {
-    from_port   = 5601
-    to_port     = 5601
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     security_groups = ["${aws_security_group.elb-sg.id}"]
+  }
+
+  # inbound connections for diagnostics
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["${var.source_access_block1}", "${var.source_access_block2}", "${var.source_access_block3}", "${var.source_access_block4}"]
   }
 
 }
@@ -46,8 +54,8 @@ resource "aws_security_group" "elb-ls-sg" {
 
   # inbound http
   ingress {
-    from_port   = 5601
-    to_port     = 5601
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -61,9 +69,9 @@ resource "aws_elb" "logsearch" {
   security_groups = ["${aws_security_group.elb-sg.id}"]
 
   listener {
-    instance_port = 5601
+    instance_port = 80
     instance_protocol = "http"
-    lb_port = 5601
+    lb_port = 80
     lb_protocol = "http"
   }
 
@@ -75,7 +83,7 @@ resource "aws_elb" "logsearch" {
 # Create a CNAME record
 resource "aws_route53_record" "logsearch" {
    zone_id = "${var.ci_dns_zone_id}"
-   name = "${var.ci_hostname}"
+   name = "${var.logsearch_hostname}"
    type = "CNAME"
    ttl = "300"
    records = ["${aws_elb.logsearch.dns_name}"]
