@@ -14,3 +14,4 @@
 bosh-director.yml
 concourse.yml
 aws-cloud.yml
+logsearch.yml
