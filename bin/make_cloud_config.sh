@@ -25,6 +25,12 @@ azs:
   cloud_properties: {availability_zone: $AWS_AZ}
 
 vm_types:
+- name: logsearch_standalone
+  cloud_properties:
+    instance_type: m3.medium
+    ephemeral_disk: {size: 5000, type: gp2}
+    elbs: [logsearch-elb]
+    security_groups: [logsearch-sg, boshdefault]
 - name: concourse_standalone
   cloud_properties:
     instance_type: m3.large
