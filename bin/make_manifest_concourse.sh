@@ -43,7 +43,6 @@ instance_groups:
     properties:
       # replace with your CI's externally reachable URL e.g https://blah
       external_url: $CONCOURSE_URL
-
       # configure GitHub auth
       github_auth:
         authorize:
@@ -53,13 +52,19 @@ instance_groups:
         client_secret: $GITHUB_CLIENT_SECRET
 
       postgresql_database: &atc_db atc
-
-      publicly_viewable: true # anyone can view the main pipeline page
-
   - name: tsa
     release: concourse
     properties: {}
 
+- name: db
+  instances: 1
+  vm_type: concourse_db
+  stemcell: trusty
+  # choose a disk type from the cloud-config
+  persistent_disk_type: $DISK_TYPE
+  azs: [z1]
+  networks: [{name: ops_services}]
+  jobs:
   - name: postgresql
     release: concourse
     properties:
@@ -69,6 +74,13 @@ instance_groups:
         role: dbrole
         password: $DB_PASSWORD
 
+- name: worker
+  instances: 1
+  vm_type: concourse_worker
+  stemcell: trusty
+  azs: [z1]
+  networks: [{name: ops_services}]
+  jobs:
   - name: groundcrew
     release: concourse
     properties: {}
